@@ -1,0 +1,47 @@
+.heroSection {
+    height: 80vh;
+    background-image: url('../images/home/heroImg.webp');
+    background-position: center;
+    background-size: cover;
+}
+.myCard {
+    background-color: #97AC9B;
+    border: 10px solid #F4F3EB;
+    padding: 10px;
+    border-radius: 30px;
+    width: 300px;
+}
+.galeryImg {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+.infoSection {
+    background-color: #97AC9B;
+    min-height: 500px;
+}
+.infoImg1 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.infoImg2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media only screen and (min-width: 960px) {
+    .infoImg1 {
+        border-left: 10px solid #F4F3EB;
+        border-bottom: 10px solid #F4F3EB;
+    }
+    .infoImg2 {
+        border-right: 10px solid #F4F3EB;
+        border-top: 10px solid #F4F3EB;
+    }
+}
+
+.bigLogo {
+    max-width: 150px;
+    height: 150px;
+}

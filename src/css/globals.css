@@ -1,0 +1,43 @@
+body{
+  background-color: #F4F3EB;
+}
+
+.titleBigW {
+  font-size: 2rem;
+  color: #FFF;
+}
+.titleSmallW {
+  font-size: 1.2rem;
+  color: #FFF;
+}
+.titleSmallB {
+  font-size: 1.2rem;
+  color: #000;
+}
+.titleBigB {
+  font-size: 2rem;
+  color: #000;
+}
+.paragraphW {
+  font-size: 1rem;
+  color: #FFF;
+}
+.paragraphB {
+  font-size: 1rem;
+  color: #000;
+}
+.subtitleTranslucidB {
+  color: #000;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+.subtitleBB {
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.paragraphTranslucidB {
+  color: #000;
+  font-size: 1rem;
+  opacity: 0.9;
+}
