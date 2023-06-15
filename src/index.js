@@ -8,7 +8,6 @@ import './index.css'
 
 import './HermeneusOne-Regular.ttf'
 
-import { ShopProvider } from './Context/ShopContext';
 import { ShoppingCardProvider } from './Context/ShoppingCartContext';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
@@ -16,12 +15,10 @@ const rootElement = document.getElementById('root')
 const root = createRoot(rootElement)
 root.render(
     <HashRouter basename={window.location.pathname || ''}>
-      <ShopProvider>
-        <ShoppingCardProvider>
-          <PayPalScriptProvider>
-            <App />
-          </PayPalScriptProvider>
-        </ShoppingCardProvider>
-      </ShopProvider>
+      <ShoppingCardProvider>
+        <PayPalScriptProvider>
+          <App />
+        </PayPalScriptProvider>
+      </ShoppingCardProvider>
     </HashRouter>
 );

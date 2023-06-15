@@ -1,3 +1,6 @@
+import React, {useState, useEffect} from 'react';
+
+import { useNavigate } from "react-router-dom";
 
 import styles from '../css/Home.module.css';
 
@@ -11,14 +14,34 @@ import Button from 'react-bootstrap/Button';
 
 
 export default function Home() {
+  const [shopItemsList, setShopItmesList] = useState([]);
+  const imageBaseUrl = "https://bellaitaliaa.com/api/images/";
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    handleGetShopItems();
+  },[])
+
+   //fect the items from db
+   const handleGetShopItems = () => {
+    fetch("https://bellaitaliaa.com//api/get_shopItems.php")
+      .then(response => response.json())
+      .then(data => {
+        setShopItmesList(data);
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+      })
+    }
+
   return (
     <>
       <Menu />
 
-      <Container fluid className={`${styles.heroSection}`}>
-        <Row className='h-100'>
-          <Col className='col-12 d-flex justify-content-center justify-content-md-end'>
-            <div className={`${styles.myCard} d-flex flex-column justify-content-between align-items-center m-2`}>
+      <Container fluid className={styles.heroSection}>
+        <Row className='h-50'>
+          <Col className='col-12 d-flex flex-column justify-content-between align-items-lg-end align-items-center'>
+            <div className={styles.myCard}>
               <span className='titleBigW'>BELLA ITALIA</span>
               <img src={require('../images/home/flag.jpg')} alt="Flag Italia" width={200}/>
               <p className='paragraphB text-center'>
@@ -30,10 +53,22 @@ export default function Home() {
               <Button variant='outline-light'>Jetzt kaufen</Button>
             </div>
           </Col>
-          
-          <Col className='col-12 d-flex justify-content-center justify-content-md-end'>
-            <img src={require('../images/logo.png')} alt="Bella Italia Logo" className={styles.bigLogo}/>
-          </Col>
+        </Row>
+        <Row className='h-50 p-3 d-flex justify-content-between align-items-end'>
+            {shopItemsList.map((item) => {
+              return(
+                <Col key={item.item_id} className='d-flex flex-column justify-content-center align-items-center'>
+                  <div className={styles.circleItem}>
+                    <img src={imageBaseUrl + item.image} className={styles.itemImage}/>
+                  </div>
+                  <Button onClick={() => navigator('/Shop')} className='mt-1'>Kaufen</Button>
+                </Col>
+              )
+            })
+            }
+            <Col className='text-center text-xl-end'>
+              <img src={require('../images/logo.png')} alt="Logo" width={250}/>
+            </Col>
         </Row>
       </Container>
 

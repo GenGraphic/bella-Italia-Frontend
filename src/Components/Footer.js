@@ -6,30 +6,41 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import axios from 'axios';
 
 const Footer = () => {
-    const [userEmail, setUserEmail] = useState('');
-    const [userName, setUserName] = useState('');
-    const [userMessage, setUserMessage] = useState('');
-    const [userSubject,setUserSubject] = useState('');
+    const [formData, setFormData] = useState({
+        name: "",
+        subject: "",
+        email: "",
+        message: "",
+    });
 
-    const sendEmail = () => {
-        const data = {
-          name: userName,
-          email: userEmail,
-          message: userMessage,
-          subject: userSubject
-        };
-      
-        axios.post('http://localhost/api_bella_italia/send_email.php', data)
-          .then(response => {
-            console.log(response.data); // Output the server response
-          })
-          .catch(error => {
-            console.error(error);
-          });
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value});
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const params = new URLSearchParams(formData);
+
+        fetch("https://bellaitaliaa.com//api/send_email.php", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params.toString(formData)
+        })
+        .then(response => response.json())
+        .then(
+            alert("Vielen Dank! Wir haben Ihre E-Mail erhalten und werden uns so schnell wie möglich bei Ihnen melden.")
+        )
+        .catch(error => {
+            console.log("Error: ", error)
+        }) 
+    }
+
     
     return (
         <Container className='mt-2 border-top'>
@@ -52,22 +63,22 @@ const Footer = () => {
                     <Form action=''>
                         <Row>
                             <Col>
-                                <Form.Control placeholder='Name' onChange={(text) => setUserName(text.target.value)}/>
+                                <Form.Control placeholder='Name' name="name" value={formData.name} onChange={handleInputChange}/>
                             </Col>
                             <Col>
-                                <Form.Control placeholder='E-mail Adress' onChange={(text) => setUserEmail(text.target.value)}/>
+                                <Form.Control placeholder='E-mail Adress' name='email' value={formData.email} onChange={handleInputChange}/>
                             </Col>
                         </Row>
                         <Row className='mt-1'>
                             <Col>
-                                <Form.Control placeholder='Subject' onChange={(text) => setUserSubject(text.target.value)}/>
+                                <Form.Control placeholder='Subject' name='subject' value={formData.subject} onChange={handleInputChange}/>
                             </Col>
                         </Row>
                         <Form.Group className="mb-3 mt-1" controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={3} placeholder='Dein Nachricht' onChange={(text) => setUserMessage(text.target.value)}/>
+                            <Form.Control as="textarea" rows={3} placeholder='Dein Nachricht' name='message' value={formData.message} onChange={handleInputChange}/>
                         </Form.Group>
                         <Row className='d-flex justify-content-end'>
-                            <Button onClick={sendEmail} className='w-25 mx-3' variant='success'>Senden</Button>
+                            <Button onClick={handleSubmit} className='w-25 mx-3' variant='success'>Senden</Button>
                         </Row>
                     </Form>
                 </Col>

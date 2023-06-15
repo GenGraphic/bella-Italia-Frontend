@@ -1,8 +1,9 @@
 .heroSection {
-    height: 80vh;
+    height: fit-content;
     background-image: url('../images/home/heroImg.webp');
     background-position: center;
     background-size: cover;
+    padding: 10px;
 }
 .myCard {
     background-color: #97AC9B;
@@ -10,6 +11,11 @@
     padding: 10px;
     border-radius: 30px;
     width: 300px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
 .galeryImg {
     width: 200px;
@@ -44,4 +50,18 @@
 .bigLogo {
     max-width: 150px;
     height: 150px;
+}
+.itemImage {
+    width: 120px;
+    height: auto;
+}
+.circleItem {
+    background-color: #97AC9B;
+    height: 150px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 5px solid #FFF
 }

@@ -37,7 +37,7 @@ const About = () => {
 
       <Container fluid className='my-5'>
         <Row className={styles.bannerCard}>
-          <Col className='d-flex justify-content-center'>
+          <Col className='col-12 col-lg-6 col-xl-3 d-flex justify-content-center'>
             <div className={styles.serviceCard}>
               <div className='d-flex flex-column align-items-center'>
                 <img src={require('../images/icon/quality.png')} width={80} alt='Quality Bella Italia'/>
@@ -48,7 +48,7 @@ const About = () => {
               </p>
             </div>
           </Col>
-          <Col className='d-flex justify-content-center'>
+          <Col className='col-12 col-lg-6 col-xl-3 d-flex justify-content-center'>
             <div className={styles.serviceCard}>
               <div className='d-flex flex-column align-items-center'>
                 <img src={require('../images/icon/price.png')} width={80} alt='Quality Bella Italia'/>
@@ -59,7 +59,7 @@ const About = () => {
               </p>
             </div>
           </Col>
-          <Col className='d-flex justify-content-center'>
+          <Col className='col-12 col-lg-6 col-xl-3 d-flex justify-content-center'>
             <div className={styles.serviceCard}>
               <div className='d-flex flex-column align-items-center'>
                 <img src={require('../images/icon/customer-service.png')} width={80} alt='Quality Bella Italia'/>
@@ -70,7 +70,7 @@ const About = () => {
               </p>
             </div>
           </Col>
-          <Col className='d-flex justify-content-center'>
+          <Col className='col-12 col-lg-6 col-xl-3 d-flex justify-content-center'>
             <div className={styles.serviceCard}>
               <div className='d-flex flex-column align-items-center'>
                 <img src={require('../images/icon/delivery.png')} width={80} alt='Quality Bella Italia'/>

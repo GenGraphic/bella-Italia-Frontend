@@ -1,6 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 import Menu from '../Components/Menu';
 import Footer from '../Components/Footer';
@@ -13,16 +12,18 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-import ShopContext from '../Context/ShopContext';
 import ShopingCartContext from '../Context/ShoppingCartContext';
 
 const Shop = () => {
   const navigator = useNavigate();
-
-  const { shopItemsList, offersList } = useContext(ShopContext);
+  const [shopItemsList, setShopItmesList] = useState([]);
   const { shopingCartList, handdleNewItem } = useContext(ShopingCartContext);
-
   const [instructions, setInstructions] = useState(false);
+  const imageBaseUrl = "https://bellaitaliaa.com/api/images/";
+
+  useEffect(() => {
+    handleGetShopItems()
+  }, [])
 
   //data for the instructions screen
   const [videoSrc, setVideoSrc] = useState('');
@@ -30,8 +31,22 @@ const Shop = () => {
   const [description, setDescription] = useState('');
   const [galery, setGalery] = useState([]);
   const [price, setPrice] = useState('');
+  const [colors, setColors] = useState([]);
 
-  const handdleInstructionsScreen = (videoSrc, title, description, galery, price) => {
+
+  //fetch the items from db
+  const handleGetShopItems = () => {
+    fetch("https://bellaitaliaa.com//api/get_shopItems.php")
+      .then(response => response.json())
+      .then(data => {
+        setShopItmesList(data);
+      })
+      .catch(error => {
+        console.log('Error: ', error);
+      })
+  }
+
+  const handdleInstructionsScreen = (videoSrc, title, description, galery, price, colors) => {
     if(!instructions) {
       setVideoSrc(videoSrc);
       setTitle(title);
@@ -39,20 +54,11 @@ const Shop = () => {
       setGalery(galery);
       setPrice(price);
       setInstructions(true)
+      setColors(colors.split(', ')); //convert the color string from db into array
     }
     else {
       setInstructions(false)
     }
-  }
-
-  useEffect(() => {
-    getShopItems();
-  }, [])
-
-  const getShopItems = () => {
-    axios.get('http://localhost/api_bella_italia/').then(function(response) {
-      console.log(response.data);
-    })
   }
 
   return (
@@ -67,6 +73,7 @@ const Shop = () => {
           description={description}
           galery={galery}
           price={price}
+          colors={colors}
         />
       }
       
@@ -87,90 +94,41 @@ const Shop = () => {
         <Row>
           {shopItemsList.map((item) =>{
             return (
-              <Col key={item.id} className='d-flex flex-column justify-content-between align-items-center mx-5'>
+              <Col key={item.item_id} className='d-flex flex-column justify-content-between align-items-center mx-5'>
                 <div className={styles.itemsImgBkg}>
-                  <img 
-                    onClick={() => handdleInstructionsScreen(item.video, item.name, item.description,item.galery, item.price)} 
-                    src={require('../images/icon/info.png')} 
-                    width={35} 
-                    className='position-absolute start-100 top-0' alt='Bella Italia Info'/>
-                  <img width={150} src={item.image} alt='Bella Italia Produkte'/>
+                  <img width={150} src={imageBaseUrl + item.image} alt='Bella Italia Produkte'/>
                 </div>
                 <span className='titleSmallB mb-2'>{item.name}</span>
                 <p className='text-center paragraphB'>
                   {item.description}
                 </p>
                 <div className='w-100 d-flex justify-content-between align-items-center'>
-                  <span className='titleSmallB'>{item.price}€</span>
-                  <Button onClick={() => handdleNewItem(item.name, item.price, item.image, 'none')}>Kaufen</Button>
+                  <Button 
+                    variant="success"
+                    onClick={() => handdleInstructionsScreen(item.video, item.name, item.description,item.galery, item.price, item.colors)} 
+                    width={35} 
+                    alt='Bella Italia Info'>
+                    Videos
+                  </Button>
+                  <div className='d-flex flex-column align-items-center'>
+                    {item.soldOut === "1" &&
+                      <span style={{color: 'red'}}>Ausverfauft</span>
+                    }
+                    <Button disabled={item.soldOut === "1"} onClick={() => handdleNewItem(item.item_id, item.name, item.price, item.image, 'none', item.versand)}>Kaufen {item.price}</Button>
+                  </div>
                 </div>
-
               </Col>
             )
           })
 
-          }
+        }
         </Row>
       </Container>
 
       <Container fluid className='my-5'>
         <Row className={styles.offerBanner}> 
-          <div className={styles.bannerCard}>
-            <span className='titleBigB'>Geniesen Sie unsere Angebote. </span>
-            <p className='paragraphB'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ac suscipit sem. 
-              Sed fringilla porttitor lacinia. Maecenas sed dignissim odio.
-            </p>
-          </div>
         </Row>
       </Container>
-
-      <Container className='mb-5'>
-        {offersList.map((item) => {
-          return (
-            <div key={item.id}>
-            <Row className={styles.offerRow}>
-              <Col className='d-flex flex-column justify-content-center align-items-center mx-5'>
-                <div className={styles.itemsImgBkg}>
-                  <img alt='Bella Italia Angebot' src={item.contains[0].image} width={150}/>
-                </div>
-                <span className='titleSmallW'>{item.contains[0].name}</span>
-              </Col>
-              <Col className='col-auto d-flex justify-content-center align-items-center'>
-                <img src={require('../images/icon/plus.png')} alt='Plus Bella Italia' width={50}/>
-              </Col>
-              <Col className='d-flex flex-column justify-content-center align-items-center mx-5'>
-                <div className={styles.itemsImgBkg}>
-                  <img alt='Bella Italia Angebot' src={item.contains[1].image} width={150}/>
-                </div>
-                <span className='titleSmallW'>{item.contains[1].name}</span>
-              </Col>
-              <Col className='col-auto d-flex justify-content-center align-items-center'>
-                <img src={require('../images/icon/plus.png')} alt='Plus Bella Italia' width={50}/>
-              </Col>
-              <Col className='d-flex flex-column justify-content-center align-items-center mx-5'>
-                <div className={styles.itemsImgBkg}>
-                  <img alt='Bella Italia Angebot' src={item.contains[2].image} width={150}/>
-                </div>
-                <span className='titleSmallW'>{item.contains[2].name}</span>
-              </Col>
-            </Row>
-            <Row className='my-3'>
-              <Col className='text-end my-auto'>
-                <span className='titleSmallB'>NUR: {item.price}€</span>
-              </Col>
-              <Col>
-                <Button onClick={() => handdleNewItem(item.name, item.price, item.image, 'none')}>Kaufen</Button>
-              </Col>
-            </Row>
-            </div>
-          )
-        })
-
-        }
-      </Container>
-
-
       <Footer />
     </div>
   )

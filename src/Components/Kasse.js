@@ -1,40 +1,71 @@
-import React, {useState, useContext, useEffect} from 'react';
-import axios from 'axios';
+import React, {useEffect, useState, useContext} from 'react';
 
 import ShopingCartContext from '../Context/ShoppingCartContext';
+
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 
 import style from '../css/Kasse.module.css';
 
-const Kasse = ({closeThis, toPay}) => {
-    const {setShopingCartList} = useContext(ShopingCartContext)
-
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [plzOrt, setPlzOrt] = useState('');
-    const [streetNr, setStreetNr] = useState('');
-    const [telefon, setTelefon] = useState('');
-    const [message, setMessage] = useState('');
-    axios.defaults.baseURL = "https://bella-italia-app-server.vercel.app";
-
-
+const Kasse = ({closeThis, toPay, steuer, netto, versand}) => {
+    const { shopingCartList, setShopingCartList } = useContext(ShopingCartContext);
     const [total, setTotal] = useState((Math.round(toPay * 100) / 100).toFixed(2));
+    const [buttonSate, setButtonState] = useState(true);
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        PLZOrt: "",
+        streetNr: "",
+        telefon: "",
+        message: "",
+        total: total,
+        versand: versand,
+        netto: netto,
+        steuer: steuer,
+        items: JSON.stringify(shopingCartList)
+    })
+    const [orderAproved, setOrderAproved] = useState(false);
 
-    const handleSucces = (payerEmail) => {
-        axios.post('/api/send-email', {payerEmail})
-            .then(() => {
-                //Empty the list and redirect the user to Shop Page
-                setShopingCartList([]); //empty list
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+    const handleChangeInput = (event) => {
+        const { name, value } = event.target;
+        setFormData ({ ...formData, [name]: value })
     }
-    
+
+
     useEffect(() => {
-        window.localStorage.setItem('userEmail', JSON.stringify(email));
-    }, [email])
-    
+        if(formData.name !== "" && formData.email !== "" && formData.PLZOrt !== "" && formData.streetNr !== "") {
+            setButtonState(false);
+        } else {
+            setButtonState(true);
+        }
+    }, [formData.name, formData.email, formData.PLZOrt, formData.streetNr])
+
+
+    useEffect(() => {
+        if(orderAproved){
+            handleThankYou();
+            setShopingCartList([]);
+        }
+        
+        setOrderAproved(false);
+    }, [orderAproved])
+
+    //send thank you Email to the client
+    const handleThankYou = () => {
+        
+        const params = new URLSearchParams(formData);
+
+        fetch('https://bellaitaliaa.com//api/thank_you.php',  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: params.toString(formData)
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.log(error);
+        })
+    }
 return (
     <div className={style.body}>
         <div className='d-flex justify-content-between'>
@@ -43,29 +74,30 @@ return (
         </div>
         <form>
             <div className='d-flex justify-content-between my-2'>
-                <label>Name:</label>
-                <input type='text' placeholder='Musterman' onChange={(text) => setName(text.target.value)}/> 
+                <label>Name:* </label>
+                <input type='text' placeholder='Max Musterman' name='name' value={formData.name} onChange={handleChangeInput}/> 
             </div>
             <div className='d-flex justify-content-between my-2'>
-                <label>Email:</label>
-                <input type='email' placeholder='jhon@beispiel.com' onChange={(e) => setEmail(e.target.value)}/>  
+                <label>Email: *</label>
+                <input type='email' placeholder='jhon@beispiel.com' name='email' value={formData.email} onChange={handleChangeInput}/>  
             </div>
             <div className='d-flex justify-content-between my-2'>
-                <label>PLZ, Ort:</label>
-                <input type='text' placeholder='123456' onChange={(text) => setPlzOrt(text.target.value)}/>  
+                <label>PLZ, Ort: *</label>
+                <input type='text' placeholder='123456' name='PLZOrt' value={formData.PLZOrt} onChange={handleChangeInput}/>  
             </div>
             <div className='d-flex justify-content-between my-2'>
-                <label>Straße, Hausnummer:</label>
-                <input type='text' placeholder='Musterstraße, 01' onChange={(text) => setStreetNr(text.target.value)}/>  
+                <label>Straße, Hausnummer: *</label>
+                <input type='text' placeholder='Musterstraße, 01' name='streetNr' value={formData.streetNr} onChange={handleChangeInput}/>  
             </div>
             <div className='d-flex justify-content-between my-2'>
                 <label>Telefonnummer:</label>
-                <input type='text' placeholder='+49 0151 4950165' onChange={(text) => setTelefon(text.target.value)}/>  
+                <input type='text' placeholder='+49 0151 4950165' name='telefon' value={formData.telefon} onChange={handleChangeInput}/>  
             </div>
             <div className='d-flex justify-content-between my-2'>
                 <label>Sonstige Nachricht:</label>
-                <input type='text' placeholder='Nicht pflichtig' onChange={(text) => setMessage(text.target.value)}/>  
+                <input type='text' placeholder='Nicht pflichtig' name='message' value={formData.message} onChange={handleChangeInput}/>  
             </div> 
+            <span className='text-info'>Bitte füllen Sie alle mit einem * markierten Felder aus.</span>
         </form>
 
         <hr></hr>
@@ -75,12 +107,12 @@ return (
         <div className=''>
         <PayPalScriptProvider 
             options={{
-                currency: 'EUR',
-                "client-id": 
-                    "AUTWKVyrkJAgO5tZkoZLbqpOgVWWZRkJ9V4zHQmZT3umQl0mlVmWvg1TwUjmDWloJKhIak3e-3fcmI5p"
+                currency: "EUR",
+                "client-id": process.env.REACT_APP_PAYPAL_ID_PROD
             }}
             >
                 <PayPalButtons 
+                disabled={buttonSate}
                 createOrder={(data, actions) => {
                     return actions.order.create({
                         purchase_units: [
@@ -95,8 +127,7 @@ return (
                 onApprove={(data, actions) => {
                     return actions.order.capture()
                     .then(() => {
-                        const userEmail = localStorage.getItem('userEmail')
-                        handleSucces(JSON.parse(userEmail)) //call the function that send the Email.
+                        setOrderAproved(true);
                     });
                 }}
                 />
