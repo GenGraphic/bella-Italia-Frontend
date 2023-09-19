@@ -47,7 +47,7 @@ const Footer = () => {
             <Row>
                 <Col className='col-12 col-md-6 col-xl-4 d-flex flex-column col-3'>
                     <span className='titleBigB'>Support:</span>
-                    <a className='paragraphB' href= 'mailto: bellaitalia@outlook.com'>bellaitalia@outlook.com</a>
+                    <a className='paragraphB' href= 'mailto: bellaitaliaa@outlook.com'>bellaitaliaa@outlook.com</a>
                     <a className='paragraphB' href='tel: +49 172 7480114'>+49 172 7480114</a>
                     <img src={require('../images/logo.png')} alt='Logo Bella Italia Shop' width={50}/>
                 </Col>
