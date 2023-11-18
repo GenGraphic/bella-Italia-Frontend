@@ -16,6 +16,7 @@ const Menu = () => {
             <Link className='link' to="/">Home</Link>
             <Link className='link' to="/About">Über uns</Link>
             <Link className='link' to="/Shop">Shop</Link>
+            <Link className='link' to="/Rezepte">Rezepte</Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

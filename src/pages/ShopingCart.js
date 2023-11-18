@@ -20,7 +20,6 @@ const ShopingCart = () => {
   const [kasse, setKasse] = useState(false);
   const [versand, setVersand] = useState(4.99);
 
-
   useEffect(() => {
     handleVersandPrice();
   }, [])
@@ -121,7 +120,7 @@ const ShopingCart = () => {
                   <span className='titleBigB'>{(Math.round(toPay * 100) / 100).toFixed(2)}€</span>
                 </div>
                 <div className='text-center mt-3'>
-                  <Button onClick={handdleKasse} className='w-75'>Kasse</Button>
+                  <Button onClick={handdleKasse} className='w-75' disabled={shopingCartList.length === 0}>Kasse</Button>
                 </div>
               </div>
             </Col>

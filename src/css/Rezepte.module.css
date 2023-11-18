@@ -1,0 +1,15 @@
+.recepieImg {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+}
+.icons {
+    width: 20px;
+    height: 20px;
+}
+.decoLine {
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+}

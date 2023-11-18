@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap');
+
+body {
+    overflow-x: hidden;
+}
 .heroSection {
     height: fit-content;
-    background-image: url('../images/home/heroImg.webp');
-    background-position: center;
-    background-size: cover;
+    
     padding: 10px;
 }
 .myCard {
@@ -16,6 +19,9 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
 }
 .galeryImg {
     width: 200px;
@@ -56,12 +62,96 @@
     height: auto;
 }
 .circleItem {
-    background-color: #97AC9B;
-    height: 150px;
-    width: 150px;
+    background-color: #FFF;
+    height: 250px;
+    width: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    border: 5px solid #FFF
+    border: 5px solid #97AC9B;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+}
+.infoBtn {
+    background-color: #FFF;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border: 5px solid #97AC9B;
+    position: absolute;
+    bottom: -20px;
+    right: -50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    transition: 0.5s;
+    box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+}
+.infoBtnIcon {
+    width: 20px;
+    height: 20px;
+}
+.buyBtnIcon {
+    width: 30px;
+    height: 30px;
+}
+.infoBtnText {
+    text-align: center;
+    font-size: 12px;
+}
+.buyBtn {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: #FFF;
+    border: 5px solid #97AC9B;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -50px;
+    right: 20px;
+    transition: 0.5s;
+    box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+}
+.buyBtn:hover {
+    scale: 1.1;
+}
+.infoBtn:hover {
+    scale: 1.1;
+}   
+.priceText {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: bold;
+    rotate: 30deg;
+}
+.priceCont {
+    background-color: #FFF;
+    height: 70px;
+    width: 70px;
+    border-radius: 35px;
+    border: 5px solid #97AC9B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(0,0,0,0.46);
 }

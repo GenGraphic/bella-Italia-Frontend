@@ -24,6 +24,8 @@ const Kasse = ({closeThis, toPay, steuer, netto, versand}) => {
         items: JSON.stringify(shopingCartList)
     })
     const [orderAproved, setOrderAproved] = useState(false);
+    const [clientID, setClientID] = useState(process.env.REACT_APP_PAYPAL_ID_PROD);
+
 
     const handleChangeInput = (event) => {
         const { name, value } = event.target;
@@ -105,34 +107,35 @@ return (
         <span>Zahlung möglichkeiten:</span>
 
         <div className=''>
-        <PayPalScriptProvider 
-            options={{
-                currency: "EUR",
-                "client-id": process.env.REACT_APP_PAYPAL_ID_PROD
-            }}
-            >
-                <PayPalButtons 
-                disabled={buttonSate}
-                createOrder={(data, actions) => {
-                    return actions.order.create({
-                        purchase_units: [
-                            {
-                                amount: {
-                                    value: total
+        
+            <PayPalScriptProvider 
+                options={{
+                    currency: "EUR",
+                    "client-id": clientID
+                }}
+                >
+                    <PayPalButtons 
+                    disabled={buttonSate}
+                    createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [
+                                {
+                                    amount: {
+                                        value: total
+                                    }
                                 }
-                            }
-                        ]
-                    })
-                }}
-                onApprove={(data, actions) => {
-                    return actions.order.capture()
-                    .then(() => {
-                        setOrderAproved(true);
-                    });
-                }}
-                />
-        </PayPalScriptProvider>
-            
+                            ]
+                        })
+                    }}
+                    onApprove={(data, actions) => {
+                        return actions.order.capture()
+                        .then(() => {
+                            setOrderAproved(true);
+                        });
+                    }}
+                    />
+            </PayPalScriptProvider>
+       
         </div>
       
     </div>

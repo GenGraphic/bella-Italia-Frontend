@@ -23,13 +23,12 @@ const About = () => {
           </Col>
           <Col className='my-auto'>
             <p className='subtitleTranslucidB'>Über Bella Italia</p>
-            <p className='subtitleBB'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget.</p>
+            <p className='subtitleBB'>Willkommen bei Giovanii – Ihrem Spezialisten für hochwertige Küchenprodukte seit 2005!</p>
             <p className='paragraphTranslucidB'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in lorem quam. 
-              Vestibulum sem lacus, rutrum ut lectus id, condimentum malesuada magna. 
-              Maecenas molestie pharetra ipsum, sed interdum risus ornare vel. Ut scelerisque venenatis ante eu tincidunt. 
-              Pellentesque fringilla eleifend quam quis auctor. Suspendisse vulputate condimentum fringilla. Donec ac eleifend lacus. 
-              Donec rhoncus elementum dolor id auctor. Proin ullamcorper tristique ex, vitae maximus libero. Mauris finibus tellus at suscipit imperdiet. Nam a justo metus.
+              Seit unserer Gründung im Jahr 2005 hat Giovanii mit Leidenschaft und Kreativität einzigartige Küchenprodukte geschaffen. Unsere Produkte sind das Ergebnis eigener Ideen, von Messen in ganz Europa inspiriert. Als Familienunternehmen legen wir Wert auf Qualität und Originalität.
+            </p>
+            <p>
+              Unsere Bilder sind mehr als nur visuelle Darstellungen – sie sind das Ergebnis unserer eigenen Materialien und spiegeln die Liebe zum Detail wider. Giovanii ist stolz darauf, 100% "Made in Italia" zu sein. Seit 2005 bieten wir unsere Produkte europaweit an, sowohl auf Messen als auch online. Entdecken Sie das einzigartige Erlebnis von Giovanii in Ihrer Küche!
             </p>
           </Col>
         </Row>
@@ -37,7 +36,7 @@ const About = () => {
 
       <Container fluid className='my-5'>
         <Row className={styles.bannerCard}>
-          <Col className='col-12 col-lg-6 col-xl-3 d-flex justify-content-center'>
+          {/*<Col className='col-12 col-lg-6 col-xl-3 d-flex justify-content-center'>
             <div className={styles.serviceCard}>
               <div className='d-flex flex-column align-items-center'>
                 <img src={require('../images/icon/quality.png')} width={80} alt='Quality Bella Italia'/>
@@ -80,7 +79,7 @@ const About = () => {
                 Bequemer Kaufprozess mit einfachen Bestell-, Versand- und Rückgabeoptionen.
               </p>
             </div>
-          </Col>
+          </Col>*/}
         </Row>
       </Container>
 
@@ -88,13 +87,12 @@ const About = () => {
         <Row>
           <Col className='my-auto'>
             <p className='subtitleTranslucidB'>Über Bella Italia</p>
-            <p className='subtitleBB'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget.</p>
+            <p className='subtitleBB'>Erleben Sie das Beste aus Italien mit Giovanii – Ihrem zuverlässigen Partner für Küchenprodukte seit 2005!</p>
             <p className='paragraphTranslucidB'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in lorem quam. 
-              Vestibulum sem lacus, rutrum ut lectus id, condimentum malesuada magna. 
-              Maecenas molestie pharetra ipsum, sed interdum risus ornare vel. Ut scelerisque venenatis ante eu tincidunt. 
-              Pellentesque fringilla eleifend quam quis auctor. Suspendisse vulputate condimentum fringilla. Donec ac eleifend lacus. 
-              Donec rhoncus elementum dolor id auctor. Proin ullamcorper tristique ex, vitae maximus libero. Mauris finibus tellus at suscipit imperdiet. Nam a justo metus.
+              Giovanii ist nicht nur eine Marke; es ist eine Leidenschaft, die seit 2005 kontinuierlich wächst. Unser Gründer, ein echter Visionär, brachte seine kreativen Ideen auf Messen in ganz Europa und schuf eine beeindruckende Palette von Küchenartikeln. Als Familienunternehmen haben wir uns der Herstellung hochwertiger Produkte verschrieben.
+            </p>
+            <p>
+              Unsere Bilder erzählen Geschichten, sie sind keine Standardaufnahmen. Jedes Bild repräsentiert unser eigenes Material und den Geist von Giovanii. Mit Stolz können wir behaupten, dass alles zu 100% in Italien hergestellt wird. Seit 2005 bringen wir die italienische Kochkunst in Küchen europaweit – sei es auf Messen oder in unserem Online-Shop. Entdecken Sie die Qualität und Leidenschaft von Giovanii!
             </p>
           </Col>
           <Col className='text-end'>
