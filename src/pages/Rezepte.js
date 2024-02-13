@@ -10,7 +10,6 @@ import styles from '../css/Rezepte.module.css';
 
 const Rezepte = () => { 
     const [rezepte, setRezepte] = useState([]);
-    const [ingredients, setIngredients] = useState([]);
     const imageBaseUrl = "https://bellaitaliaa.com/api/images/";
 
     useEffect(() => {

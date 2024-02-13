@@ -1,11 +1,8 @@
 .body {
     background-color: #FFF;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
     z-index: 10000;
     border-radius: 10px;
-    border: 1px solid #000
+    border: 1px solid #000000;
+    height: 90%;
+    overflow-y: scroll;
 }

@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 
 
 const Footer = () => {
+    const [isSending, setIsSending] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         subject: "",
@@ -20,25 +21,41 @@ const Footer = () => {
         setFormData({ ...formData, [name]: value});
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
         const params = new URLSearchParams(formData);
 
-        fetch("https://bellaitaliaa.com//api/send_email.php", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: params.toString(formData)
-        })
-        .then(response => response.json())
-        .then(
-            alert("Vielen Dank! Wir haben Ihre E-Mail erhalten und werden uns so schnell wie möglich bei Ihnen melden.")
-        )
-        .catch(error => {
-            console.log("Error: ", error)
-        }) 
+        try {
+            setIsSending(true);
+
+            const response = await fetch('https://bellaitaliaa.com//api/send_email.php', {
+                method: 'POST',
+                body: params.toString(formData),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                }
+            });
+            if(response.ok) {
+                const data = await response.json();
+                if(data.success) {
+                    setFormData({
+                        name: "",
+                        subject: "",
+                        email: "",
+                        message: "",
+                    })
+                    alert(data.message);
+                }else { 
+                    alert(data.message);
+                }
+            }else {
+                alert(response.statusText);
+            }
+        }catch (error) {
+            alert(error.message);
+        }finally {
+            setIsSending(false);
+        }
     }
 
     
@@ -71,7 +88,7 @@ const Footer = () => {
             
             <Row>
                 <span className='titleBigB'>Kontaktieren Sie uns:</span>
-                <Form action=''>
+                <Form onSubmit={handleSubmit}>
                     <Row>
                         <Col>
                             <Form.Control placeholder='Name' name="name" value={formData.name} onChange={handleInputChange}/>
@@ -89,7 +106,11 @@ const Footer = () => {
                         <Form.Control as="textarea" rows={3} placeholder='Dein Nachricht' name='message' value={formData.message} onChange={handleInputChange}/>
                     </Form.Group>
                     <Row className='d-flex justify-content-end'>
-                        <Button onClick={handleSubmit} className='w-25 mx-3' variant='success'>Senden</Button>
+                        {isSending ?
+                            <Button className='w-25 mx-3' variant='success'>Sending...</Button>
+                        :
+                            <Button type='submit' className='w-25 mx-3' variant='success'>Senden</Button>
+                        }
                     </Row>
                 </Form>
             </Row>

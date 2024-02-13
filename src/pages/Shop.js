@@ -114,7 +114,7 @@ const Shop = () => {
                     {item.soldOut === "1" &&
                       <span style={{color: 'red'}}>Ausverfauft</span>
                     }
-                    <Button disabled={item.soldOut === "1"} onClick={() => handdleNewItem(item.item_id, item.name, item.price, item.image, 'none', item.versand)}>Kaufen {item.price}</Button>
+                    <Button disabled={item.soldOut === "1"} onClick={() => handdleNewItem(item.item_id, item.name, item.price, item.image, 'none', item.versand)}>Kaufen für {item.price}€</Button>
                   </div>
                 </div>
               </Col>
