@@ -70,13 +70,23 @@ const Kasse = ({closeThis, toPay, steuer, netto, versand}) => {
 
     useEffect(() => {
         const validateFields = (data) => {
-            if(data.name === "" || data.vorname === "" || data.email === "" || data.PLZ === "" || data.city === "" || data.houseNr === "" || data.street === "") {
-                setFieldsValid(false)
+            // Trim each input and check if it's non-empty
+            const isNonEmpty = (value) => value.trim().length > 0;
+    
+            // Update the condition to use isNonEmpty for validation
+            if (!isNonEmpty(data.name) || 
+                !isNonEmpty(data.vorname) || 
+                !isNonEmpty(data.email) || 
+                !isNonEmpty(data.PLZ) || 
+                !isNonEmpty(data.city) || 
+                !isNonEmpty(data.street) || 
+                !isNonEmpty(data.houseNr)) {
+                setFieldsValid(false);
             } else {
                 setFieldsValid(true);
             }
         };
-
+    
         validateFields(formData);
     }, [formData])
 
