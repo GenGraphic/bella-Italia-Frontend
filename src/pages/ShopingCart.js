@@ -87,14 +87,6 @@ const ShopingCart = () => {
                           }}
                         />
                       </span>
-                      <span>Farbe: 
-                        <select onChange={(e) => editColor(item.id, e.target.value)}>
-                          <option value="none">None</option>
-                          <option value="green">Grün</option>
-                          <option value="red">Röt</option>
-                          <option value="yellow">Gelb</option>
-                        </select>
-                      </span>
                       <span style={{fontWeight: 'bold'}}>{(item.price * item.amount).toFixed(2)}€</span>
                     </div>
                   </Col>
