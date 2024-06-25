@@ -18,7 +18,7 @@ const ShopingCart = () => {
   const [toPay, setToPay] = useState(0.00);
   const imageBaseUrl = "https://bellaitaliaa.com/api/images/";
   const [kasse, setKasse] = useState(false);
-  const versand = 6.25;
+  const [versand, setVersand] = useState (6.25);
 
   //claculate the total client has to pay if the total of the item list change
   useEffect(() => {
@@ -27,7 +27,7 @@ const ShopingCart = () => {
 
   useEffect(() => {
     setToPay(total + steuer + versand)
-  }, [steuer])
+  }, [steuer, versand])
 
   //open the screen to make the order
   const handdleKasse = () => {
@@ -41,7 +41,7 @@ const ShopingCart = () => {
       <Menu />
 
       {kasse &&
-        <Kasse closeThis = {setKasse} toPay={toPay} steuer={steuer} netto={total} versand={versand}/>
+        <Kasse closeThis = {setKasse} toPay={toPay} steuer={steuer} netto={total} versand={versand} setVersand={setVersand}/>
       }
       
       <Container>
